@@ -149,13 +149,13 @@ int main()
 {
     // Load categories
     vector<string> categories;
-    ifstream ifs("coco.txt");
+    ifstream ifs("models/coco.txt");
     string category;
     while (getline(ifs, category))
         categories.push_back(category);
 
     // Load image
-    string path = "test_1.jpg";
+    string path = "images/test_1.jpg";
     string filename = path.substr(path.find_last_of('/') + 1);
     Mat rawImg = imread(path, IMREAD_COLOR);
 
@@ -166,7 +166,7 @@ int main()
     resize(rawImg, resizedImg, Size(targetWidth, targetHeight), INTER_LINEAR);
 
     // Load model
-    Net net = readNet("YOLOv5s.onnx");
+    Net net = readNet("models/YOLOv5s.onnx");
     vector<Mat> detections;
 
     // Process the image

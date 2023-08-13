@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Resource Files\images">
+      <UniqueIdentifier>{7eb6480d-121b-4d48-b430-86bb9388f565}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\models">
+      <UniqueIdentifier>{bb9ccc9c-7a9b-40d5-a569-d1b009b8db3e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -20,21 +26,21 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="coco.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
+    <Image Include="images\test_1.jpg">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="images\test_0.jpg">
+      <Filter>Resource Files\images</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="YOLOv5s.onnx">
-      <Filter>Resource Files</Filter>
+    <None Include="models\YOLOv5s.onnx">
+      <Filter>Resource Files\models</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="test_0.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="test_1.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
+    <Text Include="models\coco.txt">
+      <Filter>Resource Files\models</Filter>
+    </Text>
   </ItemGroup>
 </Project>

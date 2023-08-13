@@ -137,14 +137,14 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="coco.txt" />
+    <Text Include="models\coco.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="YOLOv5s.onnx" />
+    <None Include="models\YOLOv5s.onnx" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="test_0.jpg" />
-    <Image Include="test_1.jpg" />
+    <Image Include="images\test_0.jpg" />
+    <Image Include="images\test_1.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
