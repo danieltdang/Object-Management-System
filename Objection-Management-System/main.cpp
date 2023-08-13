@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include <opencv2/opencv.hpp>
 
 using namespace cv;
@@ -29,13 +30,13 @@ int main()
 {
     // Load categories
     vector<string> categories;
-    ifstream ifs("../coco.txt");
+    ifstream ifs("coco.txt");
     string category;
     while (getline(ifs, category))
         categories.push_back(category);
 
     // Load image
-    string path = "../images/fsu_logo.png";
+    string path = "fsu_logo.png";
     string filename = path.substr(path.find_last_of('/') + 1);
     Mat rawImg = imread(path, IMREAD_COLOR);
     Mat resizedImg;
