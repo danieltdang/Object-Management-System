@@ -75,24 +75,10 @@ void Yolo::ReadModel()
 	}
 }
 
-void Yolo::DrawLabel(Mat& input_image, string label, int left, int top)
+void Yolo::DrawLabel(Mat& input_image, string label, Scalar color, int left, int top)
 {
 	try
 	{
-		// Finds the color of the label
-		bool isColor = false;
-		Scalar color;
-		int i = 0;
-		while (!isColor)
-		{
-			if (colors[i].first == label)
-			{
-				color = colors[i].second;
-				isColor = true;
-			}
-			i++;
-		}
-
 		// Display the label at the top of the bounding box.
 		int baseLine;
 		Size label_size = getTextSize(label, FONT_FACE, FONT_SCALE, THICKNESS, &baseLine);
@@ -120,7 +106,7 @@ void Yolo::DrawLabel(Mat& input_image, string label, int left, int top)
 	}
 }
 
-void Yolo::pre_process(Mat& input_image)
+vector<Mat> Yolo::pre_process(Mat& input_image)
 {
 	try
 	{
@@ -129,18 +115,23 @@ void Yolo::pre_process(Mat& input_image)
 		blobFromImage(input_image, blob, 1 / 255.0, Size(INPUT_WIDTH, INPUT_HEIGHT), Scalar(0, 0, 0), true, false);
 
 		// Sets the input to the network
+		vector<Mat> detections;
 		net.setInput(blob);
 
 		// Runs the forward pass to get output from the output layers
 		net.forward(detections, net.getUnconnectedOutLayersNames());
+
+		return detections;
 	}
 	catch (const exception& ex)
 	{
 		cout << "[PRE_PROCESS_ERROR] " << ex.what() << endl;
 	}
+
+	return vector<Mat>();
 }
 
-Mat Yolo::post_process(Mat& input_image)
+Mat Yolo::post_process(Mat& input_image, vector<Mat>& detections)
 {
 	try
 	{
@@ -156,7 +147,7 @@ Mat Yolo::post_process(Mat& input_image)
 		const int dimensions = 85;
 
 		// Get the number of detections
-		int num_detections = detections[0].rows;
+		int num_detections = detections[0].size[1];
 
 		// Loop through all detections
 		for (int i = 0; i < num_detections; i++)
@@ -218,15 +209,34 @@ Mat Yolo::post_process(Mat& input_image)
 			int width = box.width;
 			int height = box.height;
 
-			// Draw bounding box
-			rectangle(input_image, Point(left, top), Point(left + width, top + height), Scalar(255, 178, 50), 3 * THICKNESS);
-
 			// Get the label for the class name and its confidence
 			string label = format("%.2f", confidences[idx]);
 			label = colors[category_ids[idx]].first + ": " + label;
 
+			
+			// Finds the color of the label
+			size_t colonPos = label.find(':');
+			// Extract the substring before the colon
+			string category = label.substr(0, colonPos);
+
+			bool isColor = false;
+			Scalar color;
+			int id = 0;
+			while (!isColor && i < colors.size())
+			{
+				if (colors[id].first == category)
+				{
+					color = colors[id].second;
+					isColor = true;
+				}
+				id++;
+			}
+
+			// Draw bounding box
+			rectangle(input_image, Point(left, top), Point(left + width, top + height), color, 3 * THICKNESS);
+
 			// Draw class labels
-			DrawLabel(input_image, label, left, top);
+			DrawLabel(input_image, label, color, left, top);
 		}
 	}
 	catch (const exception& ex)
@@ -259,8 +269,9 @@ void Yolo::DisplayImages()
 			resize(rawImg, resizedImg, Size(targetWidth, targetHeight), INTER_LINEAR);
 
 			// Process the image
-			pre_process(resizedImg);
-			Mat img = post_process(resizedImg);
+			vector<Mat> detections;
+			detections = pre_process(resizedImg);
+			Mat img = post_process(resizedImg, detections);
 
 			// Label image with processing time
 			vector<double> layersTimes;

@@ -19,9 +19,9 @@ public:
 	void LoadCategories();
 	void LoadImages();
 	void ReadModel();
-	void DrawLabel(Mat& input_image, string label, int left, int top);
-	void pre_process(Mat& input_image);
-	Mat post_process(Mat& input_image);
+	void DrawLabel(Mat& input_image, string label, Scalar color, int left, int top);
+	vector<Mat> pre_process(Mat& input_image);
+	Mat post_process(Mat& input_image, vector<Mat>& detections);
 	void DisplayImages();
 private:
 	// Categories with Colors
@@ -32,9 +32,6 @@ private:
 
 	// Model
 	Net net;
-
-	// Detections
-	vector<Mat> detections;
 
 	// Constants
 	float INPUT_WIDTH;
