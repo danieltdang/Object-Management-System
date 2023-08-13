@@ -24,6 +24,7 @@
     <ProjectGuid>{7443b1eb-aeb9-415d-95e1-8a6373c601a7}</ProjectGuid>
     <RootNamespace>ObjectionManagementSystem</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Object-Management-System</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
