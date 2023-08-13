@@ -29,9 +29,9 @@ void Yolo::LoadCategories()
 		ifstream ifs("models/coco.txt");
 		string category;
 
+		srand(time(0));
 		while (getline(ifs, category))
 		{
-			srand(time(0));
 			int b = rand() % 256;
 			int g = rand() % 256;
 			int r = rand() % 256;
