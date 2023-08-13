@@ -52,7 +52,7 @@ int main()
     // Labels image with processing time
     double freq = getTickFrequency() / 1000;
     double ms = 1 / freq;
-    string label = format("INFERENCED IN %.2f ms", ms);
+    string label = format("Processing time: %.2f ms", ms);
     putText(resizedImg, label, Point(10, 30), FONT_FACE, FONT_SCALE, BLACK, THICKNESS + 1, LINE_AA);
     putText(resizedImg, label, Point(10, 30), FONT_FACE, FONT_SCALE, WHITE, THICKNESS, LINE_AA);
 
