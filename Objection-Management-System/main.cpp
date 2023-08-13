@@ -15,7 +15,7 @@ const float NMS_THRESHOLD = 0.45;
 const float CONFIDENCE_THRESHOLD = 0.45;
 
 // Text parameters
-const float FONT_SCALE = 0.8;
+const float FONT_SCALE = 0.7;
 const int FONT_FACE = FONT_HERSHEY_TRIPLEX;
 const int THICKNESS = 1;
 
@@ -32,18 +32,20 @@ void draw_label(Mat& input_image, string label, int left, int top)
     int baseLine;
     Size label_size = getTextSize(label, FONT_FACE, FONT_SCALE, THICKNESS, &baseLine);
     top = max(top, label_size.height);
+    int offset = 23;
 
     // Top left corner.
-    Point tlc = Point(left, top);
+    Point tlc = Point(left, top - offset);
 
     // Bottom right corner.
-    Point brc = Point(left + label_size.width, top + label_size.height + baseLine);
+    Point brc = Point(left + label_size.width, top + label_size.height + baseLine - offset);
 
-    // Draw rectangle fpr label
+    // Draw rectangle for label
     rectangle(input_image, tlc, brc, BLUE, FILLED);
+    rectangle(input_image, tlc, brc, BLUE, 3 * THICKNESS);
 
     // Put the label on the rectangle
-    putText(input_image, label, Point(left, top + label_size.height), FONT_FACE, FONT_SCALE, BLACK, THICKNESS, LINE_AA);
+    putText(input_image, label, Point(left, top + label_size.height - offset), FONT_FACE, FONT_SCALE, BLACK, THICKNESS, LINE_AA);
 }
 
 vector<Mat> pre_process(Mat& input_image, Net& net)
