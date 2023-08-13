@@ -123,6 +123,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\opencv\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -135,6 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="yolo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="models\coco.txt" />
@@ -145,6 +147,9 @@
   <ItemGroup>
     <Image Include="images\test_0.jpg" />
     <Image Include="images\test_1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="yolo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
