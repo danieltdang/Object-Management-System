@@ -20,15 +20,21 @@ public:
 	void LoadImages();
 	void ReadModel();
 	void DrawLabel(Mat& input_image, string label, int left, int top);
+	void pre_process(Mat& input_image);
+	Mat post_process(Mat& input_image);
+	void DisplayImages();
 private:
 	// Categories with Colors
-	unordered_map<string, Scalar> colors;
+	vector<pair<string, Scalar>> colors;
 
 	// Image Paths
 	vector<string> imagePaths;
 
 	// Model
 	Net net;
+
+	// Detections
+	vector<Mat> detections;
 
 	// Constants
 	float INPUT_WIDTH;

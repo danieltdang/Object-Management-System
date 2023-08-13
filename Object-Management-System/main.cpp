@@ -156,43 +156,7 @@ Mat post_process(Mat& input_image, vector<Mat>& outputs, const vector<string>& c
 int main()
 {
     Yolo yolo;
+    yolo.DisplayImages();
 
-    // Load categories
-    vector<string> categories;
-    ifstream ifs("models/coco.txt");
-    string category;
-    while (getline(ifs, category))
-        categories.push_back(category);
-
-    // Load image
-    string path = "images/test_1.jpg";
-    string filename = path.substr(path.find_last_of('/') + 1);
-    Mat rawImg = imread(path, IMREAD_COLOR);
-
-    // Resize image
-    int targetWidth = 1280;
-    int targetHeight = static_cast<int>((static_cast<float>(targetWidth) / rawImg.cols) * rawImg.rows);
-    Mat resizedImg;
-    resize(rawImg, resizedImg, Size(targetWidth, targetHeight), INTER_LINEAR);
-
-    // Load model
-    Net net = readNet("models/YOLOv5s.onnx");
-    vector<Mat> detections;
-
-    // Process the image
-    detections = pre_process(resizedImg, net);
-    Mat img = post_process(resizedImg, detections, categories);
-
-    // Label image with processing time
-    vector<double> layersTimes;
-    double freq = getTickFrequency() / 1000;
-    double ms = net.getPerfProfile(layersTimes) / freq;
-    string label = format("Processing time: %.2f ms", ms);
-    putText(resizedImg, label, Point(10, 30), FONT_FACE, FONT_SCALE, BLACK, THICKNESS + 1, LINE_AA);
-    putText(resizedImg, label, Point(10, 30), FONT_FACE, FONT_SCALE, WHITE, THICKNESS, LINE_AA);
-
-    // Display window
-    imshow(filename, resizedImg);
-    waitKey(0);
     return 0;
 }
