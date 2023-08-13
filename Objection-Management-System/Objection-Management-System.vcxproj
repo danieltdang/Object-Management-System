@@ -136,13 +136,13 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="fsu_logo.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="coco.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="YOLOv5s.onnx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="test_0.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

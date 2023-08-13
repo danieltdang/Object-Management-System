@@ -8,8 +8,8 @@ using namespace std;
 using namespace dnn;
 
 // Constants
-const float WIDTH = 640.0;
-const float HEIGHT = 640.0;
+const float WIDTH = 640;
+const float HEIGHT = 640;
 const float SCORE_THRESHOLD = 0.5;
 const float NMS_THRESHOLD = 0.45;
 const float CONFIDENCE_THRESHOLD = 0.45;
@@ -36,19 +36,23 @@ int main()
         categories.push_back(category);
 
     // Load image
-    string path = "fsu_logo.png";
+    string path = "test_0.jpg";
     string filename = path.substr(path.find_last_of('/') + 1);
     Mat rawImg = imread(path, IMREAD_COLOR);
+
+    // Resize image
+    int targetWidth = 1280;
+    int targetHeight = static_cast<int>((static_cast<float>(targetWidth) / rawImg.cols) * rawImg.rows);
     Mat resizedImg;
-    resize(rawImg, resizedImg, Size(WIDTH, HEIGHT), INTER_LINEAR);
+    resize(rawImg, resizedImg, Size(targetWidth, targetHeight), INTER_LINEAR);
 
     // Load model
-    Net net;// = readNet("../models/YOLOv5s.onnx");
+    Net net = readNet("YOLOv5s.onnx");
 
     // Labels image with processing time
     double freq = getTickFrequency() / 1000;
     double ms = 1 / freq;
-    string label = format("Processing time: %.2f ms", ms);
+    string label = format("INFERENCED IN %.2f ms", ms);
     putText(resizedImg, label, Point(10, 30), FONT_FACE, FONT_SCALE, BLACK, THICKNESS + 1, LINE_AA);
     putText(resizedImg, label, Point(10, 30), FONT_FACE, FONT_SCALE, WHITE, THICKNESS, LINE_AA);
 
