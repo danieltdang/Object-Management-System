@@ -210,8 +210,8 @@ Mat Yolo::post_process(Mat& input_image, vector<Mat>& detections)
 			int height = box.height;
 
 			// Get the label for the class name and its confidence
-			string label = format("%.2f", confidences[idx]);
-			label = colors[category_ids[idx]].first + ": " + label;
+			string label = format("%.1f", confidences[idx] * 100);
+			label = colors[category_ids[idx]].first + ": " + label + "%";
 
 
 			// Finds the color of the label
