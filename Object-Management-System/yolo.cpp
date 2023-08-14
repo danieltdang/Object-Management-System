@@ -13,7 +13,7 @@ Yolo::Yolo()
 	NMS_THRESHOLD = 0.45;
 	CONFIDENCE_THRESHOLD = 0.45;
 
-	FONT_SCALE = 0.7;
+	FONT_SCALE = 0.6;
 	FONT_FACE = FONT_HERSHEY_TRIPLEX;
 	THICKNESS = 1;
 
@@ -66,8 +66,9 @@ void Yolo::ReadModel()
 {
 	try
 	{
-		net = readNet("models/YOLOv5s.onnx");
-		cout << "[SYSTEM] Loaded YOLOv8s model.\n";
+		string path = "models/YOLOv5s.onnx";
+		net = readNet(path);
+		cout << "[SYSTEM] Loaded " + path.substr(path.find_last_of('/') + 1) + " model.\n";
 	}
 	catch (const exception& ex)
 	{
@@ -85,7 +86,7 @@ void Yolo::DrawLabel(Mat& input_image, string label, Scalar color, int left, int
 		top = max(top, label_size.height);
 		
 		// Offset is used to move the label up
-		int offset = 23;
+		int offset = 20;
 
 		// Top left corner.
 		Point tlc = Point(left, top - offset);
@@ -263,7 +264,7 @@ void Yolo::DisplayImages()
 			Mat rawImg = imread(path, IMREAD_COLOR);
 
 			// Resize image
-			int targetWidth = 1280;
+			int targetWidth = INPUT_WIDTH;
 			int targetHeight = static_cast<int>((static_cast<float>(targetWidth) / rawImg.cols) * rawImg.rows);
 			Mat resizedImg;
 			resize(rawImg, resizedImg, Size(targetWidth, targetHeight), INTER_LINEAR);

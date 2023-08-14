@@ -147,6 +147,10 @@
   <ItemGroup>
     <Image Include="images\test_0.jpg" />
     <Image Include="images\test_1.jpg" />
+    <Image Include="images\test_2.jpg" />
+    <Image Include="images\test_3.jpg" />
+    <Image Include="images\test_4.jpg" />
+    <Image Include="images\test_5.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="yolo.h" />
