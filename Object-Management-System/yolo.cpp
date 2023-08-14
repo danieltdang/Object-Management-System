@@ -3,7 +3,7 @@
 using namespace std;
 using namespace cv;
 using namespace dnn;
-namespace fs = std::filesystem;
+namespace fs = filesystem;
 
 Yolo::Yolo()
 {
@@ -67,7 +67,7 @@ void Yolo::ReadModel()
 	try
 	{
 		net = readNet("models/YOLOv5s.onnx");
-		cout << "[SYSTEM] Loaded YOLOv5 model.\n";
+		cout << "[SYSTEM] Loaded YOLOv8s model.\n";
 	}
 	catch (const exception& ex)
 	{
@@ -193,7 +193,7 @@ Mat Yolo::post_process(Mat& input_image, vector<Mat>& detections)
 					boxes.push_back(Rect(left, top, width, height));
 				}
 			}
-			// Jump to the next row.
+			// Jump to the next row
 			data += 85;
 		}
 
@@ -213,7 +213,7 @@ Mat Yolo::post_process(Mat& input_image, vector<Mat>& detections)
 			string label = format("%.2f", confidences[idx]);
 			label = colors[category_ids[idx]].first + ": " + label;
 
-			
+
 			// Finds the color of the label
 			size_t colonPos = label.find(':');
 			// Extract the substring before the colon
