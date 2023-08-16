@@ -49,11 +49,6 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="models\YOLOv5s.onnx">
-      <Filter>Resource Files\models</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="models\coco.txt">
       <Filter>Resource Files\models</Filter>
     </Text>
@@ -62,5 +57,10 @@
     <ClInclude Include="yolo.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="models\yolov5l6.onnx">
+      <Filter>Resource Files\models</Filter>
+    </None>
   </ItemGroup>
 </Project>

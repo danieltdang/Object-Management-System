@@ -17,6 +17,10 @@ Yolo::Yolo()
 	FONT_FACE = FONT_HERSHEY_TRIPLEX;
 	THICKNESS = 1;
 
+	COCO_DIR = "models/coco.txt";
+	IMG_DIR = "images/";
+	MODEL_DIR = "models/yolov5l6.onnx";
+
 	LoadCategories();
 	LoadImages();
 	ReadModel();
@@ -26,7 +30,7 @@ void Yolo::LoadCategories()
 {
 	try
 	{
-		ifstream ifs("models/coco.txt");
+		ifstream ifs(COCO_DIR);
 		string category;
 
 		srand(time(0));
@@ -49,8 +53,7 @@ void Yolo::LoadImages()
 {
 	try
 	{
-		string path = "images/";
-		for (const auto& entry : fs::directory_iterator(path))
+		for (const auto& entry : fs::directory_iterator(IMG_DIR))
 		{
 			imagePaths.push_back(entry.path().string());
 		}
@@ -66,9 +69,10 @@ void Yolo::ReadModel()
 {
 	try
 	{
-		string path = "models/YOLOv5s.onnx";
-		net = readNet(path);
-		cout << "[SYSTEM] Loaded " + path.substr(path.find_last_of('/') + 1) + " model.\n";
+		net = readNet(MODEL_DIR);
+		net.setPreferableBackend(DNN_BACKEND_CUDA);
+		net.setPreferableTarget(DNN_TARGET_CUDA_FP16);
+		cout << "[SYSTEM] Loaded " + MODEL_DIR.substr(MODEL_DIR.find_last_of('/') + 1) + " model.\n";
 	}
 	catch (const exception& ex)
 	{
@@ -264,7 +268,7 @@ void Yolo::DisplayImages()
 			Mat rawImg = imread(path, IMREAD_COLOR);
 
 			// Resize image
-			int targetWidth = INPUT_WIDTH;
+			int targetWidth = INPUT_WIDTH * 1.5;
 			int targetHeight = static_cast<int>((static_cast<float>(targetWidth) / rawImg.cols) * rawImg.rows);
 			Mat resizedImg;
 			resize(rawImg, resizedImg, Size(targetWidth, targetHeight), INTER_LINEAR);

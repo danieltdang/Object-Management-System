@@ -6,10 +6,15 @@
 #include <vector>
 #include <filesystem>
 #include <opencv2/opencv.hpp>
+#include <opencv2/dnn.hpp>
+#include <opencv2/imgproc.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/core/cuda.hpp>
 
 using namespace std;
 using namespace cv;
 using namespace dnn;
+using namespace cuda;
 
 class Yolo
 {
@@ -44,4 +49,9 @@ private:
 	float FONT_SCALE;
 	int FONT_FACE;
 	int THICKNESS;
+
+	// Directories
+	string COCO_DIR;
+	string IMG_DIR;
+	string MODEL_DIR;
 };
