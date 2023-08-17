@@ -1,3 +1,5 @@
+# ARCHIVED AND INTEGRATED INTO [OMS](https://github.com/danieltdang/OMS), DUE TO THIS REPO NOT HAVING A GUI BUILT FOR THE APPLICATION.
+
 # Object Management System (WIP)
 Utilizes [OpenCV 4.8.0](https://github.com/opencv/opencv/releases/tag/4.8.0), in combination with the vision AI model [YOLOv5](https://github.com/ultralytics/yolov5) to process images to identify and categorize products in an inventory. Store product details, quantities, and images in a [MySQL](https://github.com/mysql/mysql-server) database to track inventory levels and facilitate restocking.
 ## Overview
